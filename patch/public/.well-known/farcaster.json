@@ -1,0 +1,15 @@
+{
+  "accountAssociation": {
+    "header": "PASTE_HEADER_FROM_WARPCAST_HERE",
+    "payload": "PASTE_PAYLOAD_FROM_WARPCAST_HERE",
+    "signature": "PASTE_SIGNATURE_FROM_WARPCAST_HERE"
+  },
+  "frame": {
+    "version": "next",
+    "name": "Tic Tac Toe on Base",
+    "iconUrl": "https://tictactoe-base-five.vercel.app/splash",
+    "splashImageUrl": "https://tictactoe-base-five.vercel.app/splash",
+    "splashBackgroundColor": "#0a0a0a",
+    "homeUrl": "https://tictactoe-base-five.vercel.app"
+  }
+}
