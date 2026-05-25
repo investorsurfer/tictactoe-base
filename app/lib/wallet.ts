@@ -1,7 +1,7 @@
 import { createWalletClient, createPublicClient, custom, http, parseEther } from "viem";
 import { base } from "viem/chains";
 
-export const GAME_FEE = parseEther("0.0001");
+export const GAME_FEE = parseEther("0.0000001");
 export const TREASURY_ADDRESS = "0x66911f0d4C73A9189Ed29ecAFC1514236F51dD45" as `0x${string}`;
 
 // Base mainnet chain params for wallet_addEthereumChain
