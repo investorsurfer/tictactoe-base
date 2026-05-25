@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { emptyBoard, checkWinner, isDraw, getBestMove, type Board, type GameStatus, type Cell } from "@/app/lib/game";
-import { connectWallet, getConnectedAccount, payToPlay, GAME_FEE } from "@/app/lib/wallet";
+import { connectWallet, getConnectedAccount, payToPlay, hasWallet, GAME_FEE } from "@/app/lib/wallet";
 import sdk from "@farcaster/miniapp-sdk";
 
 const formatEth = (wei: bigint) => {
@@ -143,7 +143,7 @@ export default function TicTacToe() {
             onClick={handleConnect}
             className="text-xs bg-neutral-800 border border-neutral-700 rounded-full px-3 py-1 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors"
           >
-            Connect wallet
+            Connect MetaMask / Rabby
           </button>
         )}
         {isFarcaster && (
@@ -179,12 +179,24 @@ export default function TicTacToe() {
             <p className="text-neutral-400 text-sm mb-4">
               Pay <span className="text-white font-bold">{formatEth(GAME_FEE)} ETH</span> to play. Win or lose — no refunds.
             </p>
-            <button
-              onClick={handleStartGame}
-              className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl transition-colors text-sm"
-            >
-              {account ? `Play for ${formatEth(GAME_FEE)} ETH` : "Connect & Play"}
-            </button>
+            {!hasWallet() ? (
+              <div>
+                <p className="text-yellow-400 text-xs mb-3">No wallet detected. Install MetaMask or Rabby first.</p>
+                <a href="https://metamask.io/download/" target="_blank" rel="noopener noreferrer"
+                  className="inline-block w-full py-3 bg-neutral-700 hover:bg-neutral-600 text-white font-bold rounded-xl transition-colors text-sm mb-2">
+                  Get MetaMask ↗
+                </a>
+                <a href="https://rabby.io" target="_blank" rel="noopener noreferrer"
+                  className="inline-block w-full py-3 bg-neutral-700 hover:bg-neutral-600 text-white font-bold rounded-xl transition-colors text-sm">
+                  Get Rabby ↗
+                </a>
+              </div>
+            ) : (
+              <button onClick={handleStartGame}
+                className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl transition-colors text-sm">
+                {account ? `Play for ${formatEth(GAME_FEE)} ETH` : "Connect wallet & Play"}
+              </button>
+            )}
           </div>
         )}
 
