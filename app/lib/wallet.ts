@@ -5,7 +5,6 @@ export const GAME_FEE = parseEther("0.0000001");
 export const TREASURY_ADDRESS = "0x66911f0d4C73A9189Ed29ecAFC1514236F51dD45" as `0x${string}`;
 export const BUILDER_CODE = "0x62635f6e64383970386d790b0080218021802180218021802180218021" as `0x${string}`;
 
-// Base mainnet chain params for wallet_addEthereumChain
 const BASE_CHAIN_PARAMS = {
   chainId: "0x2105",
   chainName: "Base",
@@ -34,7 +33,6 @@ export async function connectWallet(): Promise<string> {
   const accounts = (await eth.request({ method: "eth_requestAccounts" })) as string[];
   if (!accounts.length) throw new Error("No accounts returned.");
 
-  // Switch to Base, or add it if not present
   try {
     await eth.request({
       method: "wallet_switchEthereumChain",
@@ -79,7 +77,7 @@ export async function payToPlay(fromAddress: string): Promise<string> {
   const hash = await walletClient.sendTransaction({
     to: TREASURY_ADDRESS,
     value: GAME_FEE,
-    dataSuffix: BUILDER_CODE,
+    data: BUILDER_CODE,
   });
 
   const publicClient = createPublicClient({ chain: base, transport: http() });
